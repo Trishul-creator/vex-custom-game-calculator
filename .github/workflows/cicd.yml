@@ -1,9 +1,7 @@
 name: CICD
 
-
-
 on:
-  push: 
+  push:
     branches: [deploy-to-ec2]
 
 jobs:
@@ -14,27 +12,25 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup Java
         uses: actions/setup-java@v3
-        with: 
+        with:
           distribution: 'temurin'
           java-version: '17'
       - name: Build Project
-        run: mvn clean instal -DskipTests
-      - name: Login to docker hub
+        run: mvn clean install -DskipTests
+      - name: Login to Docker Hub
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
-      - name: Build docker image
+      - name: Build Docker Image
         run: docker build -t "Vex Custom Game Web App/vex-custom-game-calculator" .
-      - name: Publish image to docker hub
+      - name: Publish Image to Docker Hub
         run: docker push "Vex Custom Game Web App/vex-custom-game-calculator:latest"
 
   deploy:
     needs: build
     runs-on: [aws-ec2]
     steps:
-      - name: Pull Image from docker hub
+      - name: Pull Image from Docker Hub
         run: docker pull "Vex Custom Game Web App/vex-custom-game-calculator:latest"
-      - name: Delete old container
+      - name: Delete Old Container
         run: docker rm -f vex-custom-game-calculator-container
-      - name: Run docker container
+      - name: Run Docker Container
         run: docker run -d -p 8080:8080 --name vex-custom-game-calculator-container "Vex Custom Game Web App/vex-custom-game-calculator"
-	  
-		
