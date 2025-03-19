@@ -20,17 +20,17 @@ jobs:
       - name: Login to Docker Hub
         run: docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
       - name: Build Docker Image
-        run: docker build -t "Vex Custom Game Web App/vex-custom-game-calculator" .
+        run: docker build -t vex-custom-game-web-app/vex-custom-game-calculator .
       - name: Publish Image to Docker Hub
-        run: docker push "Vex Custom Game Web App/vex-custom-game-calculator:latest"
+        run: docker push vex-custom-game-web-app/vex-custom-game-calculator:latest
 
-  deploy:
+  deploy: 
     needs: build
     runs-on: [aws-ec2]
     steps:
       - name: Pull Image from Docker Hub
-        run: docker pull "Vex Custom Game Web App/vex-custom-game-calculator:latest"
+        run: docker pull vex-custom-game-web-app/vex-custom-game-calculator:latest
       - name: Delete Old Container
         run: docker rm -f vex-custom-game-calculator-container
       - name: Run Docker Container
-        run: docker run -d -p 8080:8080 --name vex-custom-game-calculator-container "Vex Custom Game Web App/vex-custom-game-calculator"
+        run: docker run -d -p 8080:8080 --name vex-custom-game-calculator-container vex-custom-game-web-app/vex-custom-game-calculator"
