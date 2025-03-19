@@ -1,0 +1,19 @@
+# Ignore Eclipse project files
+.project
+.classpath
+.settings/
+
+# Ignore IntelliJ IDEA project files
+.idea/
+
+# Ignore build directories
+target/
+
+# Ignore system files
+.DS_Store
+
+# Ignore Maven wrapper files
+.mvn/wrapper/
+
+# Ignore log files
+*.log
