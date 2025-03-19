@@ -1,18 +1,22 @@
 name: CICD
 
+
+
 on:
-  push:
-    branch: deploy-to-ec2
+  push: 
+    branches: [deploy-to-ec2]
+
 jobs:
   build:
     runs-on: [ubuntu-latest]
     steps:
-      - name:
+      - name: Checkout Source
         uses: actions/checkout@v3
       - name: Setup Java
         uses: actions/setup-java@v3
-        with: 'temurin'
-        java-version: '17'
+        with: 
+          distribution: 'temurin'
+          java-version: '17'
       - name: Build Project
         run: mvn clean instal -DskipTests
       - name: Login to docker hub
