@@ -33,4 +33,4 @@ jobs:
       - name: Delete Old Container
         run: docker rm -f trishulgurumurthy/vex-custom-game-calculator-container
       - name: Run Docker Container
-        run: docker run -d -p 8080:8080 --name vex-custom-game-calculator-container vex-custom-game-calculator"
+        run: docker run -d -p 8080:8080 --name vex-custom-game-calculator-container vex-custom-game-calculator
